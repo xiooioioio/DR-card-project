@@ -12,16 +12,11 @@ class Player():
 class Human(Player):
     def __init__(first_half, six_cards, 0)
 
-class Computer(Player):
-    def __init__(second_half,sixcards2, 0)
 
-
-def six_cards(first_half):
-   return first_half[:6]
-
-def six_cards2(second_half):
-   return first_half[:6]
-
+def draw(cards):
+       print(first_half)
+      
+    
 
 
 # Calculate the midpoint to split the list
@@ -38,9 +33,3 @@ random.shuffle(second_half)
 # Print the results
 print("First Half (Randomized):", first_half)
 print("Second Half (Randomized):", second_half)
-
-
-
-
-
-

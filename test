@@ -10,14 +10,31 @@ class Player():
         self.score = score
 
 class Human(Player):
-    def __init__(self, first_half):
-        six_cards = first_half[:6]
-        super().__init__(deck=first_half, hand=six_cards, score=0)
+    def __init__(self, deck):
+        first_half = deck[:len(deck) // 2]  # Get the first half of the deck
+        self.hand = first_half[:6]  # Draw six cards from the first half
+        self.score = 0  # Initialize the score to zero
+
+    def choose_card_from_hand(self):
+        print("Your Hand:")
+        for index, card in enumerate(self.hand, 1):
+            print(f"{index}. {card}")
+
+        while True:
+            try:
+                choice_index = str(input("Enter the number corresponding to your choice: ")) - 1
+                if 0 <= choice_index < len(self.hand):
+                    return self.hand.pop(choice_index)
+                else:
+                    print("Invalid choice. Please enter a valid number.")
+            except ValueError:
+                print("Invalid input. Please enter a valid number.")
 
 class Computer(Player):
-    def __init__(self, second_half):
-        six_cards = second_half[:6]
-        super().__init__(deck=second_half, hand=six_cards, score=0)
+    def __init__(self, deck):
+        second_half = deck[len(deck) // 2:]  # Get the second half of the deck
+        self.hand = second_half[:6]  # Draw six cards from the second half
+        self.score = 0  # Initialize the score to zero
 
 # Calculate the midpoint to split the list
 midpoint = len(shuffled_deck) // 2
@@ -37,3 +54,21 @@ computer_player = Computer(second_half)
 # Print the results
 print("First Half (Randomized):", first_half)
 print("Second Half (Randomized):", second_half)
+
+# Player's turn
+chosen_card = human_player.choose_card_from_hand()
+print("You chose:", chosen_card)
+
+# Computer's turn
+# Find the highest card in the computer player's hand
+highest_card = None
+for card in computer_player.hand:
+    if highest_card is None or card.value > highest_card.value:
+        highest_card = card
+print("Computer chose:", highest_card)
+
+
+
+
+
+

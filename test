@@ -11,9 +11,9 @@ class Player():
 
 class Human(Player):
     def __init__(self, deck):
+        super().__init__(deck, [], 0)
         first_half = deck[:len(deck) // 2]  # Get the first half of the deck
         self.hand = first_half[:6]  # Draw six cards from the first half
-        self.score = 0  # Initialize the score to zero
 
     def choose_card_from_hand(self):
         print("Your Hand:")
@@ -22,13 +22,14 @@ class Human(Player):
 
         while True:
             try:
-                choice_index = str(input("Enter the number corresponding to your choice: ")) - 1
+                choice_index = int(input("Enter the number corresponding to your choice: ")) - 1
                 if 0 <= choice_index < len(self.hand):
                     return self.hand.pop(choice_index)
                 else:
                     print("Invalid choice. Please enter a valid number.")
             except ValueError:
                 print("Invalid input. Please enter a valid number.")
+
 
 class Computer(Player):
     def __init__(self, deck):
@@ -67,8 +68,20 @@ for card in computer_player.hand:
         highest_card = card
 print("Computer chose:", highest_card)
 
+# ... (previous code remains unchanged) ...
 
+# Player's turn
+chosen_card = human_player.choose_card_from_hand()
+print("You chose:", chosen_card)
 
+# Computer's turn
+computer_highest_card = max(computer_player.hand, key=lambda card: card.value)
+print("Computer chose:", computer_highest_card)
 
-
-
+# Compare the values of the chosen cards to determine the winner
+if chosen_card.value > computer_highest_card.value:
+    print("You win!")
+elif chosen_card.value < computer_highest_card.value:
+    print("Computer wins!")
+else:
+    print("It's a tie!")
